@@ -10,6 +10,5 @@ public interface Service<T> {
     void removeObject(T object);
     boolean isExist(T object);
     User findUser(Long id);
-    default void editUser(User user) {
-    }
+    void editUser(T object);
 }

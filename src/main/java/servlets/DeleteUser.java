@@ -12,19 +12,25 @@ import java.io.IOException;
 
 @WebServlet("/deleteUser")
 public class DeleteUser extends HttpServlet {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/delete.jsp").forward(req, resp);
+    }
 
-    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService service = UserService.getInstance();
         Long id = Long.parseLong(req.getParameter("id"));
         User user = service.findUser(id);
         if (service.isExist(user)) {
             service.removeObject(user);
             resp.setStatus(HttpServletResponse.SC_OK);
-            System.out.println("The user is delete.");
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            System.out.println("User not found.");
         }
+        req.setAttribute("user", user);
+        req.setAttribute("name", user.getName());
+        req.setAttribute("surName", user.getSurName());
+        doGet(req, resp);
         resp.setContentType("text/html;charset=utf-8");
+        resp.sendRedirect("allUsers");
     }
 }

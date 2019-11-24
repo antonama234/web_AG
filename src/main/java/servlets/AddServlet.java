@@ -14,8 +14,7 @@ import java.io.IOException;
 @WebServlet("/addUser")
 public class AddServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/add.jsp");
-        dispatcher.forward(req, resp);
+        getServletContext().getRequestDispatcher("/add.jsp").forward(req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,6 +23,7 @@ public class AddServlet extends HttpServlet {
         String surName = req.getParameter("surName");
         Long age = Long.parseLong(req.getParameter("age"));
         User user = new User(name, surName, age);
+        Long i = user.getId();
         if (!service.isExist(user)) {
             service.addObject(user);
             resp.setStatus(HttpServletResponse.SC_OK);
@@ -31,6 +31,6 @@ public class AddServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         resp.setContentType("text/html;charset=utf-8");
-        resp.sendRedirect("/allUsers");
+        resp.sendRedirect("allUsers");
     }
 }

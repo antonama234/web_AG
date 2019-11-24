@@ -7,5 +7,6 @@ public interface DAO<T> {
     void add(T entity);
     void delete(T entity);
     T findById(Long id);
+    T findByParams(String first, String second, Long third);
     void updateUser(T entity);
 }

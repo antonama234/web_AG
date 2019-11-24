@@ -41,8 +41,20 @@ public class UserDAO implements DAO<User> {
     @Override
     public User findById(Long id) {
         Transaction transaction = session.beginTransaction();
-        User user = (User) session.createQuery("SELECT User WHERE id=:id")
+        User user = (User) session.createQuery("FROM User WHERE id=:id")
                 .setParameter("id", id)
+                .uniqueResult();
+        transaction.commit();
+        session.close();
+        return user;
+    }
+    @Override
+    public User findByParams(String name, String surName, Long age) {
+        Transaction transaction = session.beginTransaction();
+        User user = (User) session.createQuery("FROM User WHERE name=:name AND SurName=:surName AND age=:age")
+                .setParameter("name", name)
+                .setParameter("surName", surName)
+                .setParameter("age", age)
                 .uniqueResult();
         transaction.commit();
         session.close();

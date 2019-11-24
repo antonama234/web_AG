@@ -43,7 +43,7 @@ public class UserService implements Service<User> {
 
     @Override
     public boolean isExist(User user) {
-        return getUserDAO().findById(user.getId()) != null;
+        return getUserDAO().findByParams(user.getName(), user.getSurName(), user.getAge()) != null;
     }
 
     @Override
