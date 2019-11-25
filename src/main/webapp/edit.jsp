@@ -16,7 +16,7 @@
                 <td><input type="text" name="newName" required></td>
                 <td><input type="text" name="newSurName" required></td>
                 <td><input type="number" name="newAge" required></td>
-                <td><button type="submit">Submit</button></td>
+                <td><button type="submit"name="id" value=${id}>Submit</button></td>
             </tr>
         </table>
     </form>

@@ -23,7 +23,6 @@ public class AddServlet extends HttpServlet {
         String surName = req.getParameter("surName");
         Long age = Long.parseLong(req.getParameter("age"));
         User user = new User(name, surName, age);
-        Long i = user.getId();
         if (!service.isExist(user)) {
             service.addObject(user);
             resp.setStatus(HttpServletResponse.SC_OK);

@@ -22,7 +22,7 @@
             <td>${users.surName}</td>
             <td>${users.age}</td>
             <td>
-                <form action="editUser" method="post">
+                <form action="editUser" method="get">
                     <button name="id" value=${users.id}>Edit</button>
                 </form>
             </td>
