@@ -1,58 +1,53 @@
 package Servise;
 
 import DAO.UserDAO;
+import DAO.DAOFactory;
 import model.User;
-import org.hibernate.SessionFactory;
-import util.DBHelper;
 
 import java.util.List;
 
-public class UserService implements Service<User> {
-    private static UserService userService;
-    private SessionFactory sessionFactory;
+public class UserService implements UService {
+    private static UserService instance;
+    private UserDAO dao;
 
-    private UserService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    private UserService(UserDAO dao) {
+        this.dao = dao;
     }
 
     public static UserService getInstance() {
-        if (userService == null) {
-            userService = new UserService(DBHelper.getSessionFactory());
+        if (instance == null) {
+            instance = new UserService(DAOFactory.getInstance().getDAOFactory());
         }
-        return userService;
-    }
-
-    public UserDAO getUserDAO() {
-        return new UserDAO(sessionFactory.openSession());
+        return instance;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return getUserDAO().getAll();
+        return dao.getAll();
     }
 
     @Override
     public void addObject(User object) {
-        getUserDAO().add(object);
+        dao.add(object);
     }
 
     @Override
     public void removeObject(User object) {
-        getUserDAO().delete(object);
+        dao.delete(object);
     }
 
     @Override
     public boolean isExist(User user) {
-        return getUserDAO().findByParams(user.getName(), user.getSurName(), user.getAge()) != null;
+        return dao.findByParams(user.getName(), user.getSurName(), user.getAge()) != null;
     }
 
     @Override
     public User findUser(Long id) {
-        return getUserDAO().findById(id);
+        return dao.findById(id);
     }
 
     @Override
     public void editUser(User user) {
-        getUserDAO().updateUser(user);
+        dao.updateUser(user);
     }
 }

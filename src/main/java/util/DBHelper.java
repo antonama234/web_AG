@@ -7,14 +7,27 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DBHelper {
     private static SessionFactory sessionFactory;
+    private static Connection connection;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             sessionFactory = createSessionFactory();
         }
         return sessionFactory;
+    }
+
+    public static Connection getConnection() {
+        if (connection == null) {
+            connection = createConnection();
+        }
+        return connection;
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -37,5 +50,32 @@ public class DBHelper {
         builder.applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = builder.build();
         return configuration.buildSessionFactory(serviceRegistry);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    private static Connection createConnection() {
+        try {
+            DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
+
+            StringBuilder url = new StringBuilder();
+
+            url.
+                    append("jdbc:mysql://").
+                    append("localhost:").
+                    append("3306/").
+                    append("my_users?").
+                    append("user=root&").
+                    append("password=kopilka").
+                    append("&serverTimezone=UTC");
+
+            System.out.println("URL: " + url + "\n");
+
+            Connection connection = DriverManager.getConnection(url.toString());
+            connection.setAutoCommit(true);
+            return connection;
+        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new IllegalStateException();
+        }
     }
 }

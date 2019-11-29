@@ -10,26 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/deleteUser")
-public class DeleteUser extends HttpServlet {
+@WebServlet("/editUser")
+public class EditUserServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/delete.jsp").forward(req, resp);
+        Long id = Long.parseLong(req.getParameter("id"));
+        req.setAttribute("id", id);
+        getServletContext().getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService service = UserService.getInstance();
         Long id = Long.parseLong(req.getParameter("id"));
+        String newName = req.getParameter("newName");
+        String newSurName = req.getParameter("newSurName");
+        Long newAge = Long.parseLong(req.getParameter("newAge"));
         User user = service.findUser(id);
-        if (service.isExist(user)) {
-            service.removeObject(user);
+        user.setName(newName);
+        user.setSurName(newSurName);
+        user.setAge(newAge);
+        if (!service.isExist(user)) {
+            service.editUser(user);
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        req.setAttribute("user", user);
-        req.setAttribute("name", user.getName());
-        req.setAttribute("surName", user.getSurName());
-        doGet(req, resp);
         resp.setContentType("text/html;charset=utf-8");
         resp.sendRedirect("allUsers");
     }

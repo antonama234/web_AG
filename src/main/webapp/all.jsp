@@ -9,15 +9,12 @@
     <div>
     <table>
         <tr>
-            <th>Number</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Age</th>
-
         </tr>
-        <c:forEach var="users" items="${all}">
+        <c:forEach var="users" items="${requestScope.all}">
         <tr>
-            <td>${users.id}</td>
             <td>${users.name}</td>
             <td>${users.surName}</td>
             <td>${users.age}</td>
