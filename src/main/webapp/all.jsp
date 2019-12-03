@@ -28,6 +28,11 @@
                     <button name="id" value=${users.id}>Delete</button>
                 </form>
             </td>
+            <td>
+                <form action="${pageContext.request.contextPath}/user" method="get">
+                    <button name="id" value=${users.id}>To user page</button>
+                </form>
+            </td>
         </tr>
         </c:forEach>
     </table>

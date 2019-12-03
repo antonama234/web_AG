@@ -9,6 +9,7 @@ public interface Service<T> {
     void addObject(T object);
     void removeObject(T object);
     boolean isExist(T object);
-    User findUser(Long id);
+    T findByLogin(String login);
+    T findUser(Long id);
     void editUser(T object);
 }

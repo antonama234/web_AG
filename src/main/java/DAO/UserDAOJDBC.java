@@ -73,6 +73,27 @@ public class UserDAOJDBC implements UserDAO {
     }
 
     @Override
+    public User findByLogin(String login) {
+        PreparedStatement statement;
+        User user = null;
+        try {
+            statement = connection.prepareStatement("SELECT * FROM users WHERE login = ?");
+            statement.setString(1, login);
+            ResultSet result = statement.executeQuery();
+            result.next();
+            user = new User(
+                    result.getString("name"),
+                    result.getString("surName"),
+                    result.getLong("age"));
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public User findById(Long id) {
         PreparedStatement statement;
         User user = null;

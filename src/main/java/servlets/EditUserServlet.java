@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/editUser")
+@WebServlet("/admin/editUser")
 public class EditUserServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
@@ -21,10 +21,14 @@ public class EditUserServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService service = UserService.getInstance();
         Long id = Long.parseLong(req.getParameter("id"));
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
         String newName = req.getParameter("newName");
         String newSurName = req.getParameter("newSurName");
         Long newAge = Long.parseLong(req.getParameter("newAge"));
         User user = service.findUser(id);
+        user.setLogin(login);
+        user.setPassword(password);
         user.setName(newName);
         user.setSurName(newSurName);
         user.setAge(newAge);

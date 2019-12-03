@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/addUser")
+@WebServlet("/admin/addUser")
 public class AddServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/add.jsp").forward(req, resp);
@@ -18,10 +18,12 @@ public class AddServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService service = UserService.getInstance();
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
         String name = req.getParameter("name");
         String surName = req.getParameter("surName");
         Long age = Long.parseLong(req.getParameter("age"));
-        User user = new User(name, surName, age);
+        User user = new User(login, password, name, surName, age);
         if (!service.isExist(user)) {
             service.addObject(user);
             resp.setStatus(HttpServletResponse.SC_OK);

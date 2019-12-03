@@ -42,6 +42,11 @@ public class UserService implements UService {
     }
 
     @Override
+    public User findByLogin(String login) {
+        return dao.findByLogin(login);
+    }
+
+    @Override
     public User findUser(Long id) {
         return dao.findById(id);
     }

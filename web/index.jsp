@@ -1,18 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: marko
-  Date: 17.11.2019
-  Time: 18:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Main page</title>
   </head>
   <body>
-
-выкпку
-
+    <form action="index" method="post">
+      <label>
+        Login: <input type="text" name="login" required>
+      </label><br>
+      <label>
+        Password: <input type="password" name="password" required>
+      </label><br>
+        <button type="submit">Sing in</button>
+    </form>
   </body>
 </html>

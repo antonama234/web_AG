@@ -8,6 +8,7 @@ public interface UserDAO extends DAO<User> {
     List<User> getAll();
     void add(User entity);
     void delete(User entity);
+    User findByLogin(String login);
     User findById(Long id);
     User findByParams(String first, String second, Long third);
     void updateUser(User entity);

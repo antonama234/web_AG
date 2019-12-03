@@ -11,11 +11,15 @@
         <form action="addUser" method="post">
             <table>
                 <tr>
+                    <td>Login:</td>
+                    <td>Password:</td>
                     <td>Name:</td>
                     <td>Surname:</td>
                     <td>Age:</td>
                 </tr>
                 <tr>
+                    <td><input type="text" name="login" required></td>
+                    <td><input type="text" name="password" required></td>
                     <td><input type="text" name="name" required></td>
                     <td><input type="text" name="surName" required></td>
                     <td><input type="number" name="age" required></td>
@@ -25,7 +29,7 @@
         </form>
     </div>
     <div>
-        <form action="allUsers" method="get">
+        <form action="addUser" method="get">
             <button type="submit">Back to main menu</button>
         </form>
     </div>

@@ -51,6 +51,18 @@ public class UserDAOHibernate implements UserDAO {
     }
 
     @Override
+    public User findByLogin(String login) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = (User) session.createQuery("FROM User WHERE login=:login")
+                .setParameter("login", login)
+                .uniqueResult();
+        transaction.commit();
+        session.close();
+        return user;
+    }
+
+    @Override
     public User findById(Long id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

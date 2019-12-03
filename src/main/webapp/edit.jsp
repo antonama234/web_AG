@@ -8,11 +8,15 @@
     <form action="editUser" method="post">
         <table>
             <tr>
+                <td>Login:</td>
+                <td>Password:</td>
                 <td>Name:</td>
                 <td>Surname:</td>
                 <td>Age:</td>
             </tr>
             <tr>
+                <td><input type="text" name="login" required></td>
+                <td><input type="text" name="password" required></td>
                 <td><input type="text" name="newName" required></td>
                 <td><input type="text" name="newSurName" required></td>
                 <td><input type="number" name="newAge" required></td>
