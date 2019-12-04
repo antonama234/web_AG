@@ -15,14 +15,14 @@ import java.util.Properties;
 
 @WebServlet("/index")
 public class MainPageServlet extends HttpServlet {
+    private UserService service = UserService.getInstance();
+    private Properties properties = DBProperties.getMyProperties();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = UserService.getInstance();
-        Properties properties = DBProperties.getMyProperties();
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         User user = service.findByLogin(login);

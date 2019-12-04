@@ -13,8 +13,9 @@ import java.io.IOException;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
+    private UserService service = UserService.getInstance();
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = UserService.getInstance();
         HttpSession session = req.getSession();
         User user = service.findByLogin((String) session.getAttribute("login"));
         req.setAttribute("name", user.getName());

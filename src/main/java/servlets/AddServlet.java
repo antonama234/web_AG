@@ -12,12 +12,13 @@ import java.io.IOException;
 
 @WebServlet("/admin/addUser")
 public class AddServlet extends HttpServlet {
+    private UserService service = UserService.getInstance();
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/add.jsp").forward(req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = UserService.getInstance();
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String name = req.getParameter("name");

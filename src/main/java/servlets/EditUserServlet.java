@@ -12,6 +12,8 @@ import java.io.IOException;
 
 @WebServlet("/admin/editUser")
 public class EditUserServlet extends HttpServlet {
+    private UserService service = UserService.getInstance();
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         req.setAttribute("id", id);
@@ -19,7 +21,6 @@ public class EditUserServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = UserService.getInstance();
         Long id = Long.parseLong(req.getParameter("id"));
         String login = req.getParameter("login");
         String password = req.getParameter("password");

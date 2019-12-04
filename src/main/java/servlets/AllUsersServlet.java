@@ -13,10 +13,11 @@ import java.util.List;
 
 @WebServlet("/admin/allUsers")
 public class AllUsersServlet extends HttpServlet {
+    private UserService service = UserService.getInstance();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> allUsers = UserService.getInstance().getAllUsers();
+        List<User> allUsers = service.getAllUsers();
         req.setAttribute("all", allUsers);
         getServletContext().getRequestDispatcher("/all.jsp").forward(req, resp);
     }

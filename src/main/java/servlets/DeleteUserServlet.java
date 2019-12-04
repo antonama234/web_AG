@@ -12,12 +12,13 @@ import java.io.IOException;
 
 @WebServlet("/admin/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
+    private UserService service = UserService.getInstance();
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/delete.jsp").forward(req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = UserService.getInstance();
         Long id = Long.parseLong(req.getParameter("id"));
         User user = service.findUser(id);
         if (service.isExist(user)) {

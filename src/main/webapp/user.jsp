@@ -11,15 +11,15 @@
         <%
             if (session.getAttribute("role").equals("admin")) {
                 %>
-        <form action="admin/allUsers" method="get">
-            <button type="submit">To all users</button>
-        </form>
-                <%
-                    } else {
-                %>
-        <form action="index" method="get">
-            <button type="submit">Logout</button>
-        </form>
+            <form action="admin/allUsers" method="get">
+                <button type="submit">To all users</button>
+            </form>
+        <%
+            } else {
+        %>
+            <form action="index" method="get">
+                <button type="submit">Logout</button>
+            </form>
         <%
             }
         %>
